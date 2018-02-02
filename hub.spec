@@ -4,7 +4,7 @@
 #
 Name     : hub
 Version  : 2.3.0.pre8
-Release  : 6
+Release  : 7
 URL      : https://github.com/github/hub/archive/v2.3.0-pre8.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.3.0-pre8.tar.gz
 Summary  : No detailed summary available
