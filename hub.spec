@@ -4,12 +4,13 @@
 #
 Name     : hub
 Version  : 2.5.0
-Release  : 9
+Release  : 10
 URL      : https://github.com/github/hub/archive/v2.5.0.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.5.0.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause MIT WTFPL
+Requires: hub-bin
 Requires: hub-license
 BuildRequires : buildreq-golang
 BuildRequires : go
@@ -18,6 +19,15 @@ Patch1: 0001-build-for-clr.patch
 %description
 This is a Go package for manipulating paragraphs of text.
 See http://go.pkgdoc.org/github.com/kr/text for full documentation.
+
+%package bin
+Summary: bin components for the hub package.
+Group: Binaries
+Requires: hub-license
+
+%description bin
+bin components for the hub package.
+
 
 %package doc
 Summary: doc components for the hub package.
@@ -69,9 +79,17 @@ cp vendor/gopkg.in/yaml.v2/LICENSE %{buildroot}/usr/share/doc/hub/vendor_gopkg.i
 cp vendor/gopkg.in/yaml.v2/LICENSE.libyaml %{buildroot}/usr/share/doc/hub/vendor_gopkg.in_yaml.v2_LICENSE.libyaml
 cp vendor/gopkg.in/yaml.v2/NOTICE %{buildroot}/usr/share/doc/hub/vendor_gopkg.in_yaml.v2_NOTICE
 
+## install_append content
+mkdir -p %{buildroot}/usr/bin
+install -m 755 hub-%{version} %{buildroot}/usr/bin/hub
+## install_append end
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/hub
 
 %files doc
 %defattr(0644,root,root,0755)

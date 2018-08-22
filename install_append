@@ -1,0 +1,2 @@
+mkdir -p %{buildroot}/usr/bin
+install -m 755 hub-%{version} %{buildroot}/usr/bin/hub
