@@ -1,0 +1,52 @@
+From 171a2e2fdde1c6f23d149936b15f6f2f4ce55971 Mon Sep 17 00:00:00 2001
+From: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
+Date: Wed, 22 Aug 2018 04:10:59 -0500
+Subject: [PATCH] build for clr
+
+---
+ Makefile                  | 2 +-
+ script/install.sh         | 4 ++--
+ src/github.com/github/hub | 1 +
+ 3 files changed, 4 insertions(+), 3 deletions(-)
+ create mode 120000 src/github.com/github/hub
+
+diff --git a/Makefile b/Makefile
+index 6d9b7be..2828841 100644
+--- a/Makefile
++++ b/Makefile
+@@ -67,7 +67,7 @@ man-pages: $(HELP_ALL:=.ronn) $(HELP_ALL) $(HELP_ALL:=.txt)
+ share/man/man1/hub.1.ronn:
+ 	true
+ 
+-install: bin/hub man-pages
++install: bin/hub
+ 	bash < script/install.sh
+ 
+ clean:
+diff --git a/script/install.sh b/script/install.sh
+index 8bdff41..dfd0ab2 100644
+--- a/script/install.sh
++++ b/script/install.sh
+@@ -14,9 +14,9 @@ if [[ $BASH_SOURCE == */* ]]; then
+ fi
+ 
+ prefix="${PREFIX:-$prefix}"
+-prefix="${prefix:-/usr/local}"
++prefix="${prefix:-/usr}"
+ 
+-for src in bin/hub share/man/*/*.1; do
++for src in bin/hub; do
+   dest="${DESTDIR}${prefix}/${src}"
+   mkdir -p "${dest%/*}"
+   [[ $src == share/* ]] && mode="644" || mode=755
+diff --git a/src/github.com/github/hub b/src/github.com/github/hub
+new file mode 120000
+index 0000000..a8a4f8c
+--- /dev/null
++++ b/src/github.com/github/hub
+@@ -0,0 +1 @@
++../../..
+\ No newline at end of file
+-- 
+2.18.0
+
