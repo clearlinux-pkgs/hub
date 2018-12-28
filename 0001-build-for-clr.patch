@@ -23,22 +23,6 @@ index 6d9b7be..2828841 100644
  	bash < script/install.sh
  
  clean:
-diff --git a/script/install.sh b/script/install.sh
-index 8bdff41..dfd0ab2 100644
---- a/script/install.sh
-+++ b/script/install.sh
-@@ -14,9 +14,9 @@ if [[ $BASH_SOURCE == */* ]]; then
- fi
- 
- prefix="${PREFIX:-$prefix}"
--prefix="${prefix:-/usr/local}"
-+prefix="${prefix:-/usr}"
- 
--for src in bin/hub share/man/*/*.1; do
-+for src in bin/hub; do
-   dest="${DESTDIR}${prefix}/${src}"
-   mkdir -p "${dest%/*}"
-   [[ $src == share/* ]] && mode="644" || mode=755
 diff --git a/src/github.com/github/hub b/src/github.com/github/hub
 new file mode 120000
 index 0000000..a8a4f8c
@@ -50,3 +34,23 @@ index 0000000..a8a4f8c
 -- 
 2.18.0
 
+--- hub-2.7.0/script/install.sh~	2018-12-28 07:07:53.000000000 +0000
++++ hub-2.7.0/script/install.sh	2018-12-28 17:28:25.178755748 +0000
+@@ -14,7 +14,7 @@
+ fi
+ 
+ prefix="${PREFIX:-$prefix}"
+-prefix="${prefix:-/usr/local}"
++prefix="${prefix:-/usr}"
+ 
+ for src in bin/hub share/man/*/*.1 share/vim/vimfiles/*/*.vim; do
+   dest="${DESTDIR}${prefix}/${src}"
+@@ -16,7 +16,7 @@
+ prefix="${PREFIX:-$prefix}"
+ prefix="${prefix:-/usr}"
+ 
+-for src in bin/hub share/man/*/*.1 share/vim/vimfiles/*/*.vim; do
++for src in bin/hub share/vim/vimfiles/*/*.vim; do
+   dest="${DESTDIR}${prefix}/${src}"
+   mkdir -p "${dest%/*}"
+   [[ $src == share/* ]] && mode="644" || mode=755
