@@ -4,10 +4,10 @@
 #
 Name     : hub
 Version  : 2.7.0
-Release  : 14
+Release  : 15
 URL      : https://github.com/github/hub/archive/v2.7.0.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.7.0.tar.gz
-Summary  : No detailed summary available
+Summary  : cli interface for Github
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause MIT WTFPL
 Requires: hub-bin = %{version}-%{release}
@@ -17,8 +17,12 @@ BuildRequires : go
 Patch1: 0001-build-for-clr.patch
 
 %description
-This is a Go package for manipulating paragraphs of text.
-See http://go.pkgdoc.org/github.com/kr/text for full documentation.
+## TOML parser and encoder for Go with reflection
+TOML stands for Tom's Obvious, Minimal Language. This Go package provides a
+reflection interface similar to Go's standard library `json` and `xml`
+packages. This package also supports the `encoding.TextUnmarshaler` and
+`encoding.TextMarshaler` interfaces so that you can define custom data
+representations. (There is an example of this below.)
 
 %package bin
 Summary: bin components for the hub package.
@@ -74,6 +78,7 @@ cp vendor/gopkg.in/yaml.v2/NOTICE %{buildroot}/usr/share/package-licenses/hub/ve
 ## install_append content
 mkdir -p %{buildroot}/usr/bin
 install -m 755 hub-%{version} %{buildroot}/usr/bin/hub
+ln -s hub  %{buildroot}/usr/bin/git-hub
 ## install_append end
 
 %files
@@ -81,6 +86,7 @@ install -m 755 hub-%{version} %{buildroot}/usr/bin/hub
 
 %files bin
 %defattr(-,root,root,-)
+/usr/bin/git-hub
 /usr/bin/hub
 
 %files license
