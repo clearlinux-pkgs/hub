@@ -4,7 +4,7 @@
 #
 Name     : hub
 Version  : 2.7.1
-Release  : 17
+Release  : 18
 URL      : https://github.com/github/hub/archive/v2.7.1.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.7.1.tar.gz
 Summary  : cli interface for Github
