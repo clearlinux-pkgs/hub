@@ -4,7 +4,7 @@
 #
 Name     : hub
 Version  : 2.9.0
-Release  : 21
+Release  : 22
 URL      : https://github.com/github/hub/archive/v2.9.0.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.9.0.tar.gz
 Summary  : cli interface for Github
