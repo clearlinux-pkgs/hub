@@ -4,7 +4,7 @@
 #
 Name     : hub
 Version  : 2.11.1
-Release  : 24
+Release  : 25
 URL      : https://github.com/github/hub/archive/v2.11.1/hub-2.11.1.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.11.1/hub-2.11.1.tar.gz
 Summary  : cli interface for Github
