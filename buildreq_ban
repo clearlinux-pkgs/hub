@@ -1,3 +1,19 @@
 # This file contains build requirements that get picked up but are
 # undesirable. One entry per line, no whitespace.
 ruby
+# Ban these until we start adding godep packages
+go-github.com-BurntSushi-toml
+go-github.com-atotto-clipboard
+go-github.com-bmizerany-assert
+go-github.com-kballard-go-shellquote
+go-github.com-kr-pretty
+go-github.com-kr-text
+go-github.com-mattn-go-colorable
+go-github.com-mattn-go-isatty
+go-github.com-mitchellh-go-homedir
+go-github.com-russross-blackfriday
+go-github.com-shurcooL-sanitized_anchor_name
+go-golang.org-x-crypto
+go-golang.org-x-sys
+go-gopkg.in-check.v1
+go-gopkg.in-yaml.v2
