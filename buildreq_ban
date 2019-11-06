@@ -14,6 +14,7 @@ go-github.com-mitchellh-go-homedir
 go-github.com-russross-blackfriday
 go-github.com-shurcooL-sanitized_anchor_name
 go-golang.org-x-crypto
+go-golang.org-x-net
 go-golang.org-x-sys
 go-gopkg.in-check.v1
 go-gopkg.in-yaml.v2
