@@ -4,7 +4,7 @@
 #
 Name     : hub
 Version  : 2.14.2
-Release  : 35
+Release  : 36
 URL      : https://github.com/github/hub/archive/v2.14.2/hub-2.14.2.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.14.2/hub-2.14.2.tar.gz
 Summary  : A command-line tool that makes git easier to use with GitHub
@@ -57,19 +57,17 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583435801
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1595021208
 export GCC_IGNORE_WERROR=1
-export GOPROXY=file:///usr/share/goproxy
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
-make  %{?_smp_mflags}
+make  %{?_smp_mflags}  GOFLAGS='-mod=vendor -buildmode=pie -v'
 
 
 %install
-export SOURCE_DATE_EPOCH=1583435801
+export SOURCE_DATE_EPOCH=1595021208
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/hub
 cp %{_builddir}/hub-2.14.2/LICENSE %{buildroot}/usr/share/package-licenses/hub/9a434a6f4942dc25eed6b92c9f0047a81cb897eb
