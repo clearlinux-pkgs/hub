@@ -4,7 +4,7 @@
 #
 Name     : hub
 Version  : 2.14.2
-Release  : 38
+Release  : 39
 URL      : https://github.com/github/hub/archive/v2.14.2/hub-2.14.2.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.14.2/hub-2.14.2.tar.gz
 Summary  : A command-line tool that makes git easier to use with GitHub
