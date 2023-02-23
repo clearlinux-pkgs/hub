@@ -4,7 +4,7 @@
 #
 Name     : hub
 Version  : 2.14.2
-Release  : 68
+Release  : 69
 URL      : https://github.com/github/hub/archive/v2.14.2/hub-2.14.2.tar.gz
 Source0  : https://github.com/github/hub/archive/v2.14.2/hub-2.14.2.tar.gz
 Summary  : A command-line tool that makes git easier to use with GitHub
@@ -15,6 +15,9 @@ Requires: hub-data = %{version}-%{release}
 Requires: hub-license = %{version}-%{release}
 BuildRequires : buildreq-golang
 BuildRequires : go
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 Patch1: 0001-build-for-clr.patch
 
 %description
@@ -53,41 +56,44 @@ cd %{_builddir}/hub-2.14.2
 %patch1 -p1
 
 %build
+## build_prepend content
+unset CLEAR_DEBUG_TERSE
+## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1595021208
+export SOURCE_DATE_EPOCH=1677178258
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$FFLAGS -fno-lto "
-export FFLAGS="$FFLAGS -fno-lto "
-export CXXFLAGS="$CXXFLAGS -fno-lto "
+export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz "
 make  %{?_smp_mflags}  GOFLAGS='-mod=vendor -buildmode=pie -v'
 
 
 %install
-export SOURCE_DATE_EPOCH=1595021208
+export SOURCE_DATE_EPOCH=1677178258
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/hub
-cp %{_builddir}/hub-2.14.2/LICENSE %{buildroot}/usr/share/package-licenses/hub/9a434a6f4942dc25eed6b92c9f0047a81cb897eb
-cp %{_builddir}/hub-2.14.2/vendor/github.com/BurntSushi/toml/COPYING %{buildroot}/usr/share/package-licenses/hub/568dd3613cf8145e8dbb35eeb920bd7d0c662b44
-cp %{_builddir}/hub-2.14.2/vendor/github.com/atotto/clipboard/LICENSE %{buildroot}/usr/share/package-licenses/hub/5485efdb8b4f1167116feb7f4df9798329000329
-cp %{_builddir}/hub-2.14.2/vendor/github.com/kballard/go-shellquote/LICENSE %{buildroot}/usr/share/package-licenses/hub/3afc456546a3fa3e82c0d21844cd9911d7d4464b
-cp %{_builddir}/hub-2.14.2/vendor/github.com/kr/pretty/License %{buildroot}/usr/share/package-licenses/hub/cc6dc9e0c55f91b1cd26225dbf4e68a276136861
-cp %{_builddir}/hub-2.14.2/vendor/github.com/kr/text/License %{buildroot}/usr/share/package-licenses/hub/9893c30cda569ecb5d3f8d615986e948947cd56d
-cp %{_builddir}/hub-2.14.2/vendor/github.com/mattn/go-colorable/LICENSE %{buildroot}/usr/share/package-licenses/hub/5ca808f075931c5322193d4afd5a3370c824f810
-cp %{_builddir}/hub-2.14.2/vendor/github.com/mattn/go-isatty/LICENSE %{buildroot}/usr/share/package-licenses/hub/5b53018d7f0706e49275a92d36b54cfbfbb71367
-cp %{_builddir}/hub-2.14.2/vendor/github.com/mitchellh/go-homedir/LICENSE %{buildroot}/usr/share/package-licenses/hub/5ad2002bc8d2b22e2034867d159f71ba6258e18f
-cp %{_builddir}/hub-2.14.2/vendor/github.com/russross/blackfriday/LICENSE.txt %{buildroot}/usr/share/package-licenses/hub/da34754c05d40ff81f91de8c1b85ea6e5503e21d
-cp %{_builddir}/hub-2.14.2/vendor/github.com/shurcooL/sanitized_anchor_name/LICENSE %{buildroot}/usr/share/package-licenses/hub/c111106ab0af1873aa6350f797759fe1519c8be1
-cp %{_builddir}/hub-2.14.2/vendor/golang.org/x/crypto/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5
-cp %{_builddir}/hub-2.14.2/vendor/golang.org/x/net/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5
-cp %{_builddir}/hub-2.14.2/vendor/golang.org/x/sys/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5
-cp %{_builddir}/hub-2.14.2/vendor/golang.org/x/text/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5
-cp %{_builddir}/hub-2.14.2/vendor/gopkg.in/yaml.v2/LICENSE %{buildroot}/usr/share/package-licenses/hub/92170cdc034b2ff819323ff670d3b7266c8bffcd
-cp %{_builddir}/hub-2.14.2/vendor/gopkg.in/yaml.v2/LICENSE.libyaml %{buildroot}/usr/share/package-licenses/hub/ad00ce7340d89dc13ccc59920ef75cb55af5b164
-cp %{_builddir}/hub-2.14.2/vendor/gopkg.in/yaml.v2/NOTICE %{buildroot}/usr/share/package-licenses/hub/9522d95b2b9b284285cc3fb6ecc445aa3ee5e785
+cp %{_builddir}/hub-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/hub/9a434a6f4942dc25eed6b92c9f0047a81cb897eb || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/BurntSushi/toml/COPYING %{buildroot}/usr/share/package-licenses/hub/568dd3613cf8145e8dbb35eeb920bd7d0c662b44 || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/atotto/clipboard/LICENSE %{buildroot}/usr/share/package-licenses/hub/5485efdb8b4f1167116feb7f4df9798329000329 || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/kballard/go-shellquote/LICENSE %{buildroot}/usr/share/package-licenses/hub/3afc456546a3fa3e82c0d21844cd9911d7d4464b || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/kr/pretty/License %{buildroot}/usr/share/package-licenses/hub/cc6dc9e0c55f91b1cd26225dbf4e68a276136861 || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/kr/text/License %{buildroot}/usr/share/package-licenses/hub/9893c30cda569ecb5d3f8d615986e948947cd56d || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/mattn/go-colorable/LICENSE %{buildroot}/usr/share/package-licenses/hub/5ca808f075931c5322193d4afd5a3370c824f810 || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/mattn/go-isatty/LICENSE %{buildroot}/usr/share/package-licenses/hub/5b53018d7f0706e49275a92d36b54cfbfbb71367 || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/mitchellh/go-homedir/LICENSE %{buildroot}/usr/share/package-licenses/hub/5ad2002bc8d2b22e2034867d159f71ba6258e18f || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/russross/blackfriday/LICENSE.txt %{buildroot}/usr/share/package-licenses/hub/da34754c05d40ff81f91de8c1b85ea6e5503e21d || :
+cp %{_builddir}/hub-%{version}/vendor/github.com/shurcooL/sanitized_anchor_name/LICENSE %{buildroot}/usr/share/package-licenses/hub/c111106ab0af1873aa6350f797759fe1519c8be1 || :
+cp %{_builddir}/hub-%{version}/vendor/golang.org/x/crypto/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5 || :
+cp %{_builddir}/hub-%{version}/vendor/golang.org/x/net/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5 || :
+cp %{_builddir}/hub-%{version}/vendor/golang.org/x/sys/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5 || :
+cp %{_builddir}/hub-%{version}/vendor/golang.org/x/text/LICENSE %{buildroot}/usr/share/package-licenses/hub/d6a5f1ecaedd723c325a2063375b3517e808a2b5 || :
+cp %{_builddir}/hub-%{version}/vendor/gopkg.in/yaml.v2/LICENSE %{buildroot}/usr/share/package-licenses/hub/92170cdc034b2ff819323ff670d3b7266c8bffcd || :
+cp %{_builddir}/hub-%{version}/vendor/gopkg.in/yaml.v2/LICENSE.libyaml %{buildroot}/usr/share/package-licenses/hub/ad00ce7340d89dc13ccc59920ef75cb55af5b164 || :
+cp %{_builddir}/hub-%{version}/vendor/gopkg.in/yaml.v2/NOTICE %{buildroot}/usr/share/package-licenses/hub/9522d95b2b9b284285cc3fb6ecc445aa3ee5e785 || :
 %make_install
 ## install_append content
 mkdir -p %{buildroot}/usr/bin
